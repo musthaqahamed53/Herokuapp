@@ -6,4 +6,4 @@ Feature: Heroku App HomePage Tests
     Then User gives credential <username> and <password>
     Examples:
       | username | password |
-      | admin    | admin1    |
+      | admin    | admin    |
