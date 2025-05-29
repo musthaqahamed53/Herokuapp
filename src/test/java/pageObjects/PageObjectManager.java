@@ -12,4 +12,7 @@ public class PageObjectManager {
     public HomePage getHomePageObj(){
         return new HomePage(this.driver);
     }
+    public BrokenImagePage getBrokenImagePage(){
+        return new BrokenImagePage(this.driver);
+    }
 }
