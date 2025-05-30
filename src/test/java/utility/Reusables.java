@@ -1,10 +1,13 @@
 package utility;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.time.Duration;
 
 public class Reusables {
     public WebDriver driver;
@@ -28,5 +31,10 @@ public class Reusables {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean verifyUrlContains(String urlPart){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.urlContains(urlPart));
     }
 }

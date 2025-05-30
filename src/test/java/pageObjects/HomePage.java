@@ -2,6 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -20,6 +21,9 @@ public class HomePage {
     public By basicAuth = By.xpath("//a[text()='Basic Auth']");
     public By authConfirm = By.xpath("//p[contains(text(),'Congratulations! You must have the proper credentials.')]");
     public By linksHomePage = By.xpath("//a[@href and not(starts-with(@href, 'http'))]");
+    public By contextClickBtn = By.xpath("//a[text()='Context Menu']");
+    public By contextElem = By.xpath("//div[@id='hot-spot']");
+    public By draganddropClickBtn = By.xpath("//a[text()='Drag and Drop']");
 
     public void assertTitle(String theInternet) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -75,5 +79,40 @@ public class HomePage {
             linkStatus.put(tempLink,Reusables.getLinkStatus(tempLink));
         }
         return linkStatus;
+    }
+
+    public void openContextClickPage(TestContextSetup testContextSetup) {
+        driver.findElement(contextClickBtn).click();
+        Assert.assertTrue(testContextSetup.reusables.verifyUrlContains("context_menu"),"Page Not Loaded");
+    }
+
+    public String clickContextElement() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(contextElem)).contextClick().build().perform();
+
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        try{
+            Alert alert = wait.until((ExpectedConditions.alertIsPresent()));
+            String alertText = alert.getText();
+            alert.accept();
+            return alertText;
+        }
+        catch (TimeoutException e){
+            return "NotPassed";
+        }
+    }
+
+    public void openDragAndDropPage(TestContextSetup testContextSetup) {
+        driver.findElement(draganddropClickBtn).click();
+        Assert.assertTrue(testContextSetup.reusables.verifyUrlContains("drag_and_drop"),"Page Not Loaded");
+
+    }
+
+    public boolean dragAndDropelem() {
+        Actions actions = new Actions(driver);
+        WebElement source = driver.findElement(By.xpath("//div[@id='column-a']"));
+        WebElement target = driver.findElement(By.xpath("//div[@id='column-b']"));
+        actions.dragAndDrop(source,target).perform();
+        return source.findElement(By.xpath("./header")).getText().equalsIgnoreCase("B");
     }
 }

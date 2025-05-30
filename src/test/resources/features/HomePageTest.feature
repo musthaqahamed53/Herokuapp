@@ -22,3 +22,13 @@ Feature: Heroku App HomePage Tests
   Scenario: HerokuApp Links Test
     Given User is in HerokuApp Home Page
     Then User Validates the links present in the page
+
+  @RightClick @Smoke
+  Scenario: Context click Test
+    Given User is in HerokuApp Home Page
+    Then User Navigates to Context click page and Verifies Context Click
+
+  @DragAndDrop @Smoke
+  Scenario: Drag and Drop Test
+    Given User is in HerokuApp Home Page
+    Then User Navigates to Drag and Drop page and Verifies Drag and drop

@@ -65,4 +65,15 @@ public class HomePageSteps {
     }
 
 
+    @Then("User Navigates to Context click page and Verifies Context Click")
+    public void userNavigatesToContextClickPageAndVerifiesContextClick() {
+        homePage.openContextClickPage(testContextSetup);
+        Assert.assertEquals(homePage.clickContextElement(),"You selected a context menu");
+    }
+
+    @Then("User Navigates to Drag and Drop page and Verifies Drag and drop")
+    public void userNavigatesToDragAndDropPageAndVerifiesDragAndDrop() {
+        homePage.openDragAndDropPage(testContextSetup);
+        Assert.assertTrue(homePage.dragAndDropelem(),"Drag and Drop Failed");
+    }
 }
