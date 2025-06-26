@@ -1,14 +1,18 @@
 package stepDefs;
 
-import io.cucumber.java.en.*;
-import org.openqa.selenium.WebDriver;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pageObjects.HomePage;
+import utility.ExtentReportUtil;
 import utility.TestContextSetup;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.*;
+import java.util.List;
 import java.util.Map;
+
 
 public class HomePageSteps {
 
@@ -72,8 +76,11 @@ public class HomePageSteps {
     }
 
     @Then("User Navigates to Drag and Drop page and Verifies Drag and drop")
-    public void userNavigatesToDragAndDropPageAndVerifiesDragAndDrop() {
+    public void userNavigatesToDragAndDropPageAndVerifiesDragAndDrop() throws IOException {
         homePage.openDragAndDropPage(testContextSetup);
         Assert.assertTrue(homePage.dragAndDropelem(),"Drag and Drop Failed");
+        ExtentReportUtil.logInfo("Checking if drag and drop succeeded...");
+        // your validation logic here
+        ExtentReportUtil.logWithScreenshot(testContextSetup.driverManager.getDriver(), "Drag and Drop Result");
     }
 }
